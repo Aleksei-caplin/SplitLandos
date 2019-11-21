@@ -106,3 +106,8 @@ venv.bak/
 #PyCharm
 .idea/
 .idea
+
+#front
+frontend/.vscode/
+frontend/node_modules/
+
