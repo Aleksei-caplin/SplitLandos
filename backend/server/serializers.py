@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from server.models import Room, Banner
+from server.models import Room, Banner, Chat
 from django.contrib.auth.models import User
 
 
@@ -8,6 +8,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("id", "username")
+
+
+class ChatSer(serializers.ModelSerializer):
+    class Meta:
+        model = Chat
+        fields = ("id",)
 
 
 class RoomSerializer(serializers.ModelSerializer):
@@ -20,9 +26,27 @@ class RoomSerializer(serializers.ModelSerializer):
         fields = ("creator", "invited", "created_at")
 
 
+class ChatSerializers(serializers.ModelSerializer):
+    """ Сериализация чата """
+    user = UserSerializer()
+
+    class Meta:
+        model = Chat
+        fields = ("user", "text", "date")
+
+
+class ChatPostSerializers(serializers.ModelSerializer):
+    """Сериализация чата"""
+    room = ChatSer()
+
+    class Meta:
+        model = Chat
+        fields = ("room", "text")
+
+
 class BannerSerializer(serializers.ModelSerializer):
     """ Сериализация баннеров """
-
+    #user = serializers.HiddenField(default=serializers.CurrentUserDefault) #добавляет текущего пользователя в поле
     class Meta:
         model = Banner
         fields = ("title", "description", "link", "image")

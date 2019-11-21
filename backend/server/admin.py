@@ -13,6 +13,12 @@ class RoomAdmin(admin.ModelAdmin):
 admin.site.register(Room, RoomAdmin)
 
 
+@admin.register(Chat)
+class ChatAdmin(admin.ModelAdmin):
+    """ Комната чата """
+    list_display = ([field.name for field in Chat._meta.fields])
+
+
 @admin.register(Banner)
 class BannerAdmin(admin.ModelAdmin):
     """ Слайдер """
