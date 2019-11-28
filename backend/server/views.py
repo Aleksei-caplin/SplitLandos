@@ -21,29 +21,28 @@ class Rooms(APIView):
 
 class Dialog(APIView):
     """Диалог чата, сообщение"""
-    permission_classes = (AllowAny, )
+    permission_classes = [permissions.IsAuthenticated, ]
     # permission_classes = [permissions.AllowAny, ]
 
     def get(self, request):
-        room = request.GET.get("room")
-        chat = Chat.objects.filter(room=room)
+        if request.GET.get("room"):
+            room_id = request.GET.get("room")
+        else:
+            room_id = 1
+
+        chat = Chat.objects.filter(room=room_id)
         serializer = ChatSerializers(chat, many=True)
         return Response({"data": serializer.data})
 
     def post(self, request):
-        # room = request.data.get("room")
+        #room = request.data.get("room")
         dialog = ChatPostSerializers(data=request.data)
+        print(dialog)
         if dialog.is_valid():
             dialog.save(user=request.user)
-            return Response(status=201)
+            return Response({"status": "Add"})
         else:
-            return Response(status=400)
-
-
-class Dialog1(generics.CreateAPIView):
-    serializer_class = ChatPostSerializers
-    #queryset = Chat.objects.all()
-    permission_classes = (AllowAny,)
+            return Response({"status": "Error1"})
 
 
 class BannerCreateView(generics.CreateAPIView):
@@ -65,4 +64,17 @@ class BannerDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BannerSerializer
     queryset = Banner.objects.all()
     #permission_classes = (IsOwnerOrReadOnly, ) # проверка на то что редактирует тот кто создал
+
+
+class BannerCustom(APIView):
+    """ Кастомный вариант страницы бпннера """
+    def get (self, request):
+        banners = Banner.objects.all()
+        serializer = BannerCustomSerializers(banners, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        print("**********************************************************")
+        #serializer = BannerCustomPostSerializers(data=request.data)
+
 

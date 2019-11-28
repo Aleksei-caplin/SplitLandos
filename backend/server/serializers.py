@@ -36,8 +36,7 @@ class ChatSerializers(serializers.ModelSerializer):
 
 
 class ChatPostSerializers(serializers.ModelSerializer):
-    """Сериализация чата"""
-    room = ChatSer()
+    """ Сериализация чата """
 
     class Meta:
         model = Chat
@@ -57,3 +56,16 @@ class BannerListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Banner
         fields = ("title", "description", "link", "image")
+
+
+class BannerCustomSerializers(serializers.ModelSerializer):
+    """ Сериализатор для кастомных баннеров """
+    class Meta:
+        model = Banner
+        fields = ("title", "description", "image", "link")
+
+
+class BannerCustomPostSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Banner
+        fields = ("title", "link")

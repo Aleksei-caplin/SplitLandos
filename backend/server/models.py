@@ -18,14 +18,18 @@ class Room(models.Model):
 
 class Chat(models.Model):
     """ Модель чата """
-    room = models.ForeignKey(Room, verbose_name="Чат", on_delete=models.CASCADE)
-    user = models.ForeignKey(User, verbose_name="Полбьзователь", on_delete=models.CASCADE)
-    text = models.TextField("Сообщение", max_length='500')
-    date = models.DateTimeField("Дата отправки", auto_now_add=True, auto_now=False)
+
+    room = models.ForeignKey(Room, verbose_name="Комната чата", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE)
+    text = models.TextField("Сообщение", max_length=500)
+    date = models.DateTimeField("Дата создания чата", auto_now_add=True)
 
     class Meta:
-        verbose_name = 'Сообщение чата'
-        verbose_name_plural = 'Сообщения чатов'
+        verbose_name = "Сообщение чата"
+        verbose_name_plural = "Сообщения чатов"
+
+
+
 
 
 class Banner(models.Model):
