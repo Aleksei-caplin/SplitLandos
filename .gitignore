@@ -106,6 +106,8 @@ venv.bak/
 #PyCharm
 .idea/
 .idea
+backend/.idea/
+backend/.idea
 
 
 # dependencies

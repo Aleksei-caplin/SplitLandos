@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'corsheaders',
     'django_summernote',
     'rest_framework',
     'rest_framework.authtoken',
@@ -54,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'settings.urls'
@@ -156,11 +158,14 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
     ),
     'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata',
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+
 }
 SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('JWT',),
 }
 CORS_ORIGIN_ALLOW_ALL = True #разрешает все запросы на backend
+
 
 try:
     from .local_settings import *
