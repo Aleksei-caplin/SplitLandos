@@ -11,13 +11,6 @@ export class Auth extends Component{
 
     handleSignIn = () => {
         const { username, password } = this.state;
-        // axios.post("http://127.0.0.1:8000/auth/token/login/", {
-        //   username, password
-        // }
-        // )
-        // .then(response => response.json())
-        // .then((data) => {console.log(data)})
-        // .catch(error => {console.log( 'the error has occured: ' + error) })
         axios({
             method: 'POST',
             url: 'http://127.0.0.1:8000/auth/token/login/',
@@ -25,7 +18,7 @@ export class Auth extends Component{
             headers:{'Content-Type': 'application/json; charset=utf-8'}
         })
         .then((response) => {
-            console.log(response);
+            console.log(response.data.data.id);
         })
 
     };
