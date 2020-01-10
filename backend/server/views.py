@@ -7,6 +7,7 @@ from server.models import Banner
 from server.permissions import IsOwnerOrReadOnly
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from server.models import Room, Chat
+from django.shortcuts import get_object_or_404
 from server.serializers import *
 
 
@@ -59,11 +60,19 @@ class BannerListView(generics.ListAPIView):
     permission_classes = (AllowAny, )
 
 
-class BannerDetailView(generics.RetrieveUpdateDestroyAPIView):
-    """ Создание, удаление, обновление баннера """
-    serializer_class = BannerSerializer
-    queryset = Banner.objects.all()
-    #permission_classes = (IsOwnerOrReadOnly, ) # проверка на то что редактирует тот кто создал
+class BannerDetailView(APIView):
+    """ Просмотр баннера по id """
+
+    permission_classes = [permissions.AllowAny, ]
+
+    def get(self, request, pk):
+        item = get_object_or_404(Banner, pk=pk)
+        serializer = BannerSerializer(item)
+        return Response(serializer.data)
+
+    # serializer_class = BannerSerializer
+    # queryset = Banner.objects.all()
+    # #permission_classes = (IsOwnerOrReadOnly, ) # проверка на то что редактирует тот кто создал
 
 
 class BannerCustom(APIView):
