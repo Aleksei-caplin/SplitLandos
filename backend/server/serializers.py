@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from server.models import Room, Banner, Chat
+from server.models import Room, Banner, Chat, News
 from django.contrib.auth.models import User
 
 
@@ -69,3 +69,13 @@ class BannerCustomPostSerializers(serializers.ModelSerializer):
     class Meta:
         model = Banner
         fields = ("title", "link")
+
+
+class NewsListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = News
+        fields = ("title", "text", "picture", "active", "sort")
+
+
+
+

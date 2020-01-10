@@ -29,9 +29,6 @@ class Chat(models.Model):
         verbose_name_plural = "Сообщения чатов"
 
 
-
-
-
 class Banner(models.Model):
     title = models.CharField(verbose_name="Название баннера", max_length=50)
     description = models.CharField("Описание баннера", max_length=150, blank=True)
@@ -41,3 +38,16 @@ class Banner(models.Model):
     class Meta:
         verbose_name = 'Слайд'
         verbose_name_plural = 'Слайды'
+
+
+class News(models.Model):
+    """ Модель новости """
+    title = models.CharField("Заголовок", max_length=50)
+    text = models.TextField("Содержание")
+    picture = models.ImageField("Картинка", upload_to="news", blank=True)
+    active = models.BooleanField("Активность", default=True)
+    sort = models.PositiveSmallIntegerField("Сортировка", default=500)
+
+    class Meta:
+        verbose_name = 'Новость'
+        verbose_name_plural = 'Новости'

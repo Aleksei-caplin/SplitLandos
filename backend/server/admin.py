@@ -24,3 +24,9 @@ class BannerAdmin(admin.ModelAdmin):
     """ Слайдер """
     list_display = ([field.name for field in Banner._meta.fields])
 
+
+@admin.register(News)
+class NewsAdmin(admin.ModelAdmin):
+    """ Новости """
+    list_display = ([field.name for field in News._meta.fields])
+

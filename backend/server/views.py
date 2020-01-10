@@ -87,3 +87,17 @@ class BannerCustom(APIView):
         #serializer = BannerCustomPostSerializers(data=request.data)
 
 
+class NewsList(APIView):
+    """ чтение, правка и удаление страниц новостей """
+    permission_classes = [permissions.AllowAny, ]
+    def get(self, request):
+        news = get_object_or_404(News)
+        serializer = NewsListSerializer(news)
+        return Response(serializer.data)
+
+
+class NewsCreateView(generics.CreateAPIView):
+        serializer_class = NewsListSerializer
+        queryset = News.objects.all()
+        permission_classes = (AllowAny,)
+

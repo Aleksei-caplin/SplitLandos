@@ -10,4 +10,6 @@ urlpatterns = [
     path('banners/detail/<int:pk>/', BannerDetailView.as_view()),
     path('banners/create/', BannerCreateView.as_view()),
     path('banners/', BannerListView.as_view()),
+    path('news/create/', NewsCreateView.as_view()),
+    path('news/', NewsList.as_view()),
 ]
